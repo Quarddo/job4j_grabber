@@ -3,17 +3,39 @@ package ru.job4j.quartz;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import static org.quartz.JobBuilder.*;
 import static org.quartz.TriggerBuilder.*;
 import static org.quartz.SimpleScheduleBuilder.*;
 
-public class AlertRabbit {
+public class AlertRabbit  {
 
     private static Properties properties = new Properties();
+    private Connection cn;
+
+    public Connection init() {
+        try (InputStream in = AlertRabbit.class.getClassLoader().getResourceAsStream("rabbit.properties")) {
+            Properties config = new Properties();
+            config.load(in);
+            Class.forName(config.getProperty("driver-class-name"));
+            cn = DriverManager.getConnection(
+                    config.getProperty("url"),
+                    config.getProperty("username"),
+                    config.getProperty("password"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return cn;
+    }
 
     private static int interval() {
         int rslInterval = 0;
@@ -27,40 +49,52 @@ public class AlertRabbit {
     }
 
     public static void main(String[] args) {
-        try {
-            /** Конфигурирование.
-             * Начало работы происходит с создания класса управляющего всеми работами.
-             * В объект Scheduler мы будем добавлять задачи, которые хотим выполнять периодически. */
+        try (Connection connection = new AlertRabbit().init()) {
+            List<Long> store = new ArrayList<>();
             Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
             scheduler.start();
-            /** Создание задачи.
-             * quartz каждый раз создает объект с типом org.quartz.Job */
-            JobDetail job = newJob(Rabbit.class).build();
-            /**Создание расписания.
-             * Конструкция ниже настраивает периодичность запуска. В нашем случае,
-             * мы будем запускать задачу через 10 секунд и делать это бесконечно.*/
+            JobDataMap data = new JobDataMap();
+            data.put("store", store);
+            data.put("connection", connection);
+            JobDetail job = newJob(Rabbit.class)
+                    .usingJobData(data)
+                    .build();
             SimpleScheduleBuilder times = simpleSchedule()
                     .withIntervalInSeconds(interval())
                     .repeatForever();
-            /** Задача выполняется через триггер.
-             * Здесь можно указать, когда начинать запуск. Мы хотим сделать это сразу. */
             Trigger trigger = newTrigger()
                     .startNow()
                     .withSchedule(times)
                     .build();
-            /** Загрузка задачи и триггера в планировщик. */
             scheduler.scheduleJob(job, trigger);
-        } catch (SchedulerException se) {
+            Thread.sleep(10000);
+            scheduler.shutdown();
+            System.out.println(store);
+        } catch (Exception se) {
             se.printStackTrace();
         }
     }
 
-    /** Для создания задачи(2), Вам нужно создать класс реализующий этот интерфейс.
-     Внутри этого класса нужно описать требуемые действия. В нашем случае - это вывод на консоль текста.*/
     public static class Rabbit implements Job {
+
+        public Rabbit() {
+            System.out.println(hashCode());
+        }
+
         @Override
         public void execute(JobExecutionContext context) throws JobExecutionException {
             System.out.println("Rabbit runs here ...");
+            /**List<Long> store = (List<Long>) context.getJobDetail().getJobDataMap().get("store");
+            store.add(System.currentTimeMillis());
+             */
+            Connection cn = (Connection) context.getJobDetail().getJobDataMap().get("connection");
+            try (PreparedStatement ps = cn.prepareStatement(
+                    "insert into rabbit(created_date) values (?)")) {
+                ps.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
+                ps.execute();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }
