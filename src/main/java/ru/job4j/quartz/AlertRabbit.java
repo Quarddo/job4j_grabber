@@ -36,7 +36,7 @@ public class AlertRabbit  {
         }
         return cn;
     }
-
+/**
     private static int interval() {
         int rslInterval = 0;
         try (InputStream in = AlertRabbit.class.getClassLoader().getResourceAsStream("rabbit.properties")) {
@@ -47,6 +47,7 @@ public class AlertRabbit  {
         }
         return rslInterval;
     }
+ */
 
     public static void main(String[] args) {
         try (Connection connection = new AlertRabbit().init()) {
@@ -60,7 +61,7 @@ public class AlertRabbit  {
                     .usingJobData(data)
                     .build();
             SimpleScheduleBuilder times = simpleSchedule()
-                    .withIntervalInSeconds(interval())
+                    .withIntervalInSeconds(5)
                     .repeatForever();
             Trigger trigger = newTrigger()
                     .startNow()
