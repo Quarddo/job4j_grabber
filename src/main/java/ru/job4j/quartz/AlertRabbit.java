@@ -49,19 +49,20 @@ public class AlertRabbit  {
     }
 */
 
-    public static void main(String[] args) {
-        try (Connection connection = new AlertRabbit().init(loadProperties())) {
-            List<Long> store = new ArrayList<>();
+    public static void main(String[] args) throws IOException {
+        Properties properties = loadProperties();
+        try (Connection connection = new AlertRabbit().init(properties)) {
+            /** List<Long> store = new ArrayList<>(); */
             Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
             scheduler.start();
             JobDataMap data = new JobDataMap();
-            data.put("store", store);
+            /** data.put("store", store);*/
             data.put("connection", connection);
             JobDetail job = newJob(Rabbit.class)
                     .usingJobData(data)
                     .build();
             SimpleScheduleBuilder times = simpleSchedule()
-                    .withIntervalInSeconds(Integer.parseInt(loadProperties()
+                    .withIntervalInSeconds(Integer.parseInt(properties
                             .getProperty("rabbit.interval")))
                     .repeatForever();
             Trigger trigger = newTrigger()
@@ -71,7 +72,7 @@ public class AlertRabbit  {
             scheduler.scheduleJob(job, trigger);
             Thread.sleep(10000);
             scheduler.shutdown();
-            System.out.println(store);
+            /** System.out.println(store); */
         } catch (Exception se) {
             se.printStackTrace();
         }
