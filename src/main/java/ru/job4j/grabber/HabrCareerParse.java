@@ -37,7 +37,21 @@ public class HabrCareerParse {
                 LocalDateTime dateTime = harbCareerDateTimeParser.parse(vacancyDate);
                 String link = String.format("%s%s", SOURCE_LINK, linkElement.attr("href"));
                 System.out.printf("%s %s %s%n", dateTime, vacancyName, link);
+                try {
+                    String description = retrieveDescription(link);
+                    System.out.printf("Описание: %s" + System.lineSeparator(), description);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             });
         }
+    }
+
+    private static String retrieveDescription(String link) throws IOException {
+        Connection connection = Jsoup.connect(link);
+        Document document = connection.get();
+        Elements rows = document.select(".job_show_description__body");
+        Element description = rows.select(".style-ugc").first();
+        return description.text();
     }
 }
