@@ -22,8 +22,8 @@ public class HabrCareerParse {
     private static final String PAGE_LINK = String.format("%s/vacancies/java_developer", SOURCE_LINK);
 
     public static void main(String[] args) throws IOException {
-        for (int pageNum = 0; pageNum <= 5; pageNum++) {
-            Connection connection = Jsoup.connect(PAGE_LINK + "?page" + pageNum);
+        for (int pageNum = 1; pageNum <= 5; pageNum++) {
+            Connection connection = Jsoup.connect(PAGE_LINK + "?page=" + pageNum);
             Document document = connection.get();
             HarbCareerDateTimeParser harbCareerDateTimeParser = new HarbCareerDateTimeParser();
             Elements rows = document.select(".vacancy-card__inner");
