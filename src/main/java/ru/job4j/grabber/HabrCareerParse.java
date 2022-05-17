@@ -47,12 +47,10 @@ public class HabrCareerParse implements Parse {
         List<Post> rslList = new ArrayList<>();
         for (int pageNum = 1; pageNum <= 5; pageNum++) {
             try {
-            Connection connection = Jsoup.connect(link + "?page" + pageNum);
+            Connection connection = Jsoup.connect(link + "?page=" + pageNum);
             Document document = connection.get();
             Elements rows = document.select(".vacancy-card__inner");
-            List<Post> post = new ArrayList<>();
-            rows.forEach(row -> post.add(parsePost(row)));
-            rslList.addAll(post);
+            rows.forEach(row -> rslList.add(parsePost(row)));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -61,7 +59,6 @@ public class HabrCareerParse implements Parse {
     }
 
     private Post parsePost(Element row) {
-        List<Post> rsl = new ArrayList<>();
         Element titleElement = row.select(".vacancy-card__title").first();
         Element linkElement = titleElement.child(0);
         String vacancyName = titleElement.text();
