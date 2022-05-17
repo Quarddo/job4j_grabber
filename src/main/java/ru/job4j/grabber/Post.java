@@ -3,6 +3,14 @@ package ru.job4j.grabber;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+/**
+ * Модель данных.
+ *  - id типа int - идентификатор вакансии (берется из нашей базы данных);
+ *  - title типа String - название вакансии;
+ *  - link типа String - ссылка на описание вакансии;
+ *  - description типа String - описание вакансии;
+ *  - created типа LocalDateTime - дата создания вакансии.
+ */
 public class Post {
     private int id;
     private String title;
