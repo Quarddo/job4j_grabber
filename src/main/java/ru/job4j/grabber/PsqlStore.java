@@ -1,6 +1,9 @@
 package ru.job4j.grabber;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -26,8 +29,8 @@ public class PsqlStore implements Store, AutoCloseable {
                 "insert into post(name, text, link, created) values(?, ?, ?, ?)",
                 Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, post.getTitle());
-            ps.setString(2, post.getLink());
-            ps.setString(3, post.getDescription());
+            ps.setString(2, post.getDescription());
+            ps.setString(3, post.getLink());
             ps.setTimestamp(4, Timestamp.valueOf(post.getCreated()));
             ps.execute();
             try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
@@ -86,6 +89,28 @@ public class PsqlStore implements Store, AutoCloseable {
     public void close() throws Exception {
         if (cnn != null) {
             cnn.close();
+        }
+    }
+
+    public static void main(String[] args) {
+        try (InputStream in = PsqlStore.class.getClassLoader()
+                .getResourceAsStream("grabber.properties")) {
+            Properties cfg = new Properties();
+            cfg.load(in);
+            PsqlStore psql = new PsqlStore(cfg);
+            Post post1 = new Post("Автотестировщик", "Проект в банковской сфере",
+                    "https://career.habr.com/vacancies/1000102377", LocalDateTime.now());
+            Post post2 = new Post("Android-разработчик", "Работа удаленная, рассматриваем также кандидатов из различных регионов",
+                    "https://career.habr.com/vacancies/1000094991", LocalDateTime.now());
+            Post post3 = new Post("Fullstack developer", "разработка бизнес-логики и серверной части систем цифровых продуктов",
+                    "https://career.habr.com/vacancies/1000101195", LocalDateTime.now());
+            psql.save(post1);
+            psql.save(post2);
+            psql.save(post3);
+            System.out.println(psql.getAll());
+            System.out.println(psql.findById(1));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

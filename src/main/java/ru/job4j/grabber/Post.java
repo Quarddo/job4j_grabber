@@ -18,7 +18,7 @@ public class Post {
     private String description;
     private LocalDateTime created;
 
-    public Post(int id, String title, String link, String description, LocalDateTime created) {
+    public Post(int id, String title, String description, String link, LocalDateTime created) {
         this.id = id;
         this.title = title;
         this.link = link;
@@ -26,7 +26,7 @@ public class Post {
         this.created = created;
     }
 
-    public Post(String title, String link, String description, LocalDateTime created) {
+    public Post(String title, String description, String link, LocalDateTime created) {
         this.title = title;
         this.link = link;
         this.description = description;
