@@ -67,7 +67,7 @@ public class Grabber implements Grab {
             store.getAll();
         }
     }
-/**
+
     public void web(Store store) {
         new Thread(() -> {
             try (ServerSocket server = new ServerSocket(Integer.parseInt(cfg.getProperty("port")))) {
@@ -89,13 +89,13 @@ public class Grabber implements Grab {
             }
         }).start();
     }
-*/
+
     public static void main(String[] args) throws Exception {
         Grabber grab = new Grabber();
         grab.cfg();
         Scheduler scheduler = grab.scheduler();
         Store store = grab.store();
         grab.init(new HabrCareerParse(new HarbCareerDateTimeParser()), store, scheduler);
-        /**grab.web(store);*/
+        grab.web(store);
     }
 }
