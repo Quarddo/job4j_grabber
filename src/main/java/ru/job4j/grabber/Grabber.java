@@ -37,9 +37,11 @@ public class Grabber implements Grab {
 
     @Override
     public void init(Parse parse, Store store, Scheduler scheduler) throws SchedulerException {
+
         JobDataMap data = new JobDataMap();
         data.put("store", store);
         data.put("parse", parse);
+        data.put("link", cfg.getProperty("link"));
         JobDetail job = newJob(GrabJob.class)
                 .usingJobData(data)
                 .build();
