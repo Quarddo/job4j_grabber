@@ -55,7 +55,8 @@ public class HabrCareerParse implements Parse {
                 e.printStackTrace();
             }
         }
-        return rslList;
+        List<Post> copy = new ArrayList<>(rslList);
+        return copy;
     }
 
     private Post parsePost(Element row) {
