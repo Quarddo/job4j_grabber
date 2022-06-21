@@ -46,8 +46,11 @@ select c.name, count(p.name) as count_person
 from company c
 join person p on c.id = p.company_id
 group by c.name
-order by count_person desc
-limit 1;
+having count(p.name) = (select count(p.name) from person p
+                        group by p.company_id
+                        order by count(p.company_id) desc
+                        limit 1);
+;
 
 select c.name, count(p.name) as count_person
 from company c

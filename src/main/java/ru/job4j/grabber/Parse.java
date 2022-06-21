@@ -1,6 +1,5 @@
 package ru.job4j.grabber;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -9,7 +8,7 @@ import java.util.List;
  *
  * Этот компонент позволяет собрать короткое описание всех объявлений, а так же загрузить детали по каждому объявлению.
  *
- * list(link) - этот метод загружает список объявлений по ссылке типа - https://www.sql.ru/forum/job-offers/1
+ * list(link) - этот метод загружает список объявлений по ссылке типа - https:-www.sql.ru-forum-job-offers-1
  *
  * Описание компонента через интерфейс позволяет расширить наш проект.
  *
