@@ -7,7 +7,7 @@ import java.lang.ref.WeakReference;
 public class Test {
     public static void main(String[] args) {
         Object reference = new Object();
-        //SoftReference<Object> softReference = new SoftReference<>(reference);
+        SoftReference<Object> softReference = new SoftReference<>(reference);
         ReferenceQueue<Object> referenceQueue = new ReferenceQueue<>();
         WeakReference<Object> weakReference = new WeakReference<>(reference);
         reference = null;
