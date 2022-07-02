@@ -4,6 +4,10 @@ import java.util.Scanner;
 
 public class Emulator {
 
+    private static final int CHOICE1 = 1;
+    private static final int CHOICE2 = 2;
+    private static final int CHOISE3 = 3;
+
     private static void choiceMenu() {
         System.out.println(
                 "1. Загрузить содержимое файла в кэш \n"
@@ -22,15 +26,15 @@ public class Emulator {
         while (run) {
             choiceMenu();
             int choice = scanner.nextInt();
-            if (choice == 1) {
-                cache.put(fileName, cache.load(fileName));
-                System.out.println("Содержимое фйла загруженно в кэш.");
+            if (choice == CHOICE1) {
+                cache.put(fileName, cache.get(fileName));
+                System.out.println("Содержимое файла загружено в кэш:\n" + cache + "\n");
             }
-            if (choice == 2) {
-                System.out.println("содержимое файла: " + cache.get(fileName));
+            if (choice == CHOICE2) {
+                System.out.println("Содержимое файла: \n" + cache.get(fileName) + "\n");
 
             }
-            if (choice == 3) {
+            if (choice == CHOISE3) {
                 run = false;
                 System.out.println("Работа завершена.");
             }
