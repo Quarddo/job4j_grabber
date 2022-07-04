@@ -4,9 +4,9 @@ import java.util.Scanner;
 
 public class Emulator {
 
-    private static final int CHOICE1 = 1;
-    private static final int CHOICE2 = 2;
-    private static final int CHOISE3 = 3;
+    private static final int LOAD_IN_CACHE = 1;
+    private static final int GET_FILE_CONTENT = 2;
+    private static final int FINISH_WORK = 3;
 
     private static void choiceMenu() {
         System.out.println(
@@ -26,15 +26,15 @@ public class Emulator {
         while (run) {
             choiceMenu();
             int choice = scanner.nextInt();
-            if (choice == CHOICE1) {
+            if (choice == LOAD_IN_CACHE) {
                 cache.put(fileName, cache.get(fileName));
                 System.out.println("Содержимое файла загружено в кэш:\n" + cache + "\n");
             }
-            if (choice == CHOICE2) {
+            if (choice == GET_FILE_CONTENT) {
                 System.out.println("Содержимое файла: \n" + cache.get(fileName) + "\n");
 
             }
-            if (choice == CHOISE3) {
+            if (choice == FINISH_WORK) {
                 run = false;
                 System.out.println("Работа завершена.");
             }
