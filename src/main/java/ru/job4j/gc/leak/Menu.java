@@ -15,12 +15,13 @@ public class Menu {
     public static final String TEXT_OF_POST = "Введите текст";
     public static final String EXIT = "Конец работы";
 
-    public static final String MENU =
-                "Введите 1 для создание поста."
-                + "Введите 2, чтобы создать определенное количество постов."
-                + "Введите 3, чтобы показать все посты."
-                + "Введите 4, чтобы удалить все посты."
-                + "Введите любое другое число для выхода.";
+    public static final String MENU = """
+                Введите 1 для создание поста.
+                Введите 2, чтобы создать определенное количество постов.
+                Введите 3, чтобы показать все посты.
+                Введите 4, чтобы удалить все посты.
+                Введите любое другое число для выхода.
+            """;
 
     public static void main(String[] args) {
         Random random = new Random();
@@ -43,7 +44,7 @@ public class Menu {
                 String text = scanner.nextLine();
                 userGenerator.generate();
                 commentGenerator.generate();
-                postStore.add(new Post(text, CommentGenerator.getComments()));
+                postStore.add(new Post(text, commentGenerator.getComments()));
             } else if (ADD_MANY_POST == userChoice) {
                 System.out.println(TEXT_OF_POST);
                 String text = scanner.nextLine();
@@ -53,7 +54,7 @@ public class Menu {
                     createPost(commentGenerator, userGenerator, postStore, text);
                 }
             } else if (SHOW_ALL_POSTS == userChoice) {
-                System.out.println(PostStore.getPosts());
+                System.out.println(postStore.getPosts());
             } else if (DELETE_POST == userChoice) {
                 System.out.println("ID_FOR_DELETE");
                 postStore.removeAll();
@@ -68,6 +69,6 @@ public class Menu {
                                    UserGenerator userGenerator, PostStore postStore, String text) {
         userGenerator.generate();
         commentGenerator.generate();
-        postStore.add(new Post(text, CommentGenerator.getComments()));
+        postStore.add(new Post(text, commentGenerator.getComments()));
     }
 }
