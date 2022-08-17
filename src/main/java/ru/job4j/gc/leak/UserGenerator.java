@@ -12,7 +12,6 @@ public class UserGenerator implements Generate {
     public static final String PATH_SURNAMES = "src/main/java/ru/job4j/gc/leak/files/surnames.txt";
     public static final String PATH_PATRONS = "src/main/java/ru/job4j/gc/leak/files/patr.txt";
 
-    public static final String SEPARATOR = " ";
     public static final int NEW_USERS = 1000;
 
     public List<String> names;
@@ -30,7 +29,7 @@ public class UserGenerator implements Generate {
     public void generate() {
         users.clear();
         for (int i = 0; i < NEW_USERS; i++) {
-            StringJoiner joiner = new StringJoiner(System.lineSeparator());
+            StringJoiner joiner = new StringJoiner(" ");
             joiner.add(surnames.get(random.nextInt(surnames.size())));
             joiner.add(names.get(random.nextInt(names.size())));
             joiner.add(patrons.get(random.nextInt(patrons.size())));
