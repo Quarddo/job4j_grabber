@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.StringJoiner;
 
 public class UserGenerator implements Generate {
 
@@ -29,10 +30,12 @@ public class UserGenerator implements Generate {
     public void generate() {
         users.clear();
         for (int i = 0; i < NEW_USERS; i++) {
+            StringJoiner joiner = new StringJoiner(System.lineSeparator());
+            joiner.add(surnames.get(random.nextInt(surnames.size())));
+            joiner.add(names.get(random.nextInt(names.size())));
+            joiner.add(patrons.get(random.nextInt(patrons.size())));
             users.add(new User(
-                    surnames.get(random.nextInt(surnames.size())) + SEPARATOR
-                            + names.get(random.nextInt(names.size())) + SEPARATOR
-                            + patrons.get(random.nextInt(patrons.size()))));
+                    joiner.toString()));
         }
     }
 
