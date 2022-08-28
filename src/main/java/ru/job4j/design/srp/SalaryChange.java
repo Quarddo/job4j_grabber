@@ -7,6 +7,7 @@ public class SalaryChange implements Report {
 
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd:MM:yyyy HH:mm");
     public static final String SEPARATOR = System.lineSeparator();
+    public static final String EURO = " EUR.";
 
     private Store store;
 
@@ -23,7 +24,7 @@ public class SalaryChange implements Report {
             text.append(employee.getName()).append(";")
                     .append(DATE_FORMAT.format(employee.getHired().getTime())).append(";")
                     .append(DATE_FORMAT.format(employee.getFired().getTime())).append(";")
-                    .append(employee.getSalary()).append(" EUR. ").append(";")
+                    .append(employee.getSalary()).append(EURO).append(";")
                     .append(SEPARATOR);
         }
         return text.toString();

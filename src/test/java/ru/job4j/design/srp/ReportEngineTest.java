@@ -4,6 +4,7 @@ import java.util.Calendar;
 
 import static org.assertj.core.api.Assertions.*;
 import static ru.job4j.design.srp.ReportEngine.DATE_FORMAT;
+import static ru.job4j.design.srp.SalaryChange.EURO;
 
 import org.junit.Test;
 
@@ -68,7 +69,7 @@ public class ReportEngineTest {
                 .append(worker.getName()).append(";")
                 .append(DATE_FORMAT.format(worker.getHired().getTime())).append(";")
                 .append(DATE_FORMAT.format(worker.getFired().getTime())).append(";")
-                .append(worker.getSalary()).append(" EUR. ").append(";")
+                .append(worker.getSalary()).append(EURO).append(";")
                 .append(System.lineSeparator());
         assertThat(salary.generate(em -> true)).isEqualTo(expect.toString());
     }
