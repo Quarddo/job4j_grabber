@@ -3,7 +3,6 @@ package ru.job4j.design.srp;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.util.Calendar;
 import java.util.function.Predicate;
 
 public class JSONReport implements Report {
@@ -18,7 +17,7 @@ public class JSONReport implements Report {
     public String generate(Predicate<Employee> filter) {
         return gson.toJson(store.findBy(filter));
     }
-
+/**
     public static void main(String[] args) {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
@@ -29,4 +28,5 @@ public class JSONReport implements Report {
         Report salary = new JSONReport(store);
         System.out.println(salary.generate(em -> true));
     }
+ */
 }

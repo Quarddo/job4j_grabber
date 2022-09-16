@@ -2,7 +2,7 @@ package ru.job4j.design.srp;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.Year;
+
 import java.util.Calendar;
 import java.util.StringJoiner;
 
@@ -10,8 +10,9 @@ import static org.assertj.core.api.Assertions.*;
 import static ru.job4j.design.srp.ReportEngine.DATE_FORMAT;
 import static ru.job4j.design.srp.SalaryChange.EURO;
 
-import net.bytebuddy.matcher.NegatingMatcher;
 import org.junit.Test;
+
+import javax.xml.bind.JAXBException;
 
 public class ReportEngineTest {
 
@@ -98,7 +99,7 @@ public class ReportEngineTest {
     }
 
     @Test
-    public void whenGeneratedXML() {
+    public void whenGeneratedXML() throws JAXBException {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
         Employee worker = new Employee("Ivan", now, now, 100);

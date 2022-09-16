@@ -5,8 +5,6 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.Calendar;
-import java.util.List;
 import java.util.function.Predicate;
 
 public class XMLReport implements Report {
@@ -15,16 +13,16 @@ public class XMLReport implements Report {
     private JAXBContext context;
     private Marshaller marshaller;
 
-    public XMLReport(Store store) {
+    public XMLReport(Store store) throws JAXBException {
         this.store = store;
+        context = JAXBContext.newInstance(Employees.class);
+        marshaller = context.createMarshaller();
     }
 
     @Override
     public String generate(Predicate<Employee> filter) {
         String xml = "";
         try (StringWriter writer = new StringWriter()) {
-            context = JAXBContext.newInstance(Employees.class);
-            marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             marshaller.marshal(new Employees(store.findBy(filter)), writer);
             xml = writer.getBuffer().toString();
@@ -33,8 +31,8 @@ public class XMLReport implements Report {
         }
        return xml;
     }
-
-    public static void main(String[] arg) {
+/**
+    public static void main(String[] arg) throws JAXBException {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
         Employee worker = new Employee("Ivan", now, now, 100);
@@ -44,4 +42,5 @@ public class XMLReport implements Report {
         Report salary = new XMLReport(store);
         System.out.println(salary.generate(em -> true));
     }
+ */
 }
