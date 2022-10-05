@@ -5,15 +5,25 @@ import java.util.List;
 
 public class Warehouse implements Store {
 
-    List<Food> warehouseFood = new ArrayList<>();
+    private final List<Food> warehouseFood = new ArrayList<>();
 
     @Override
-    public void add(Food food) {
-        warehouseFood.add(food);
+    public boolean add(Food food) {
+        boolean rsl = false;
+        if (accept(food)) {
+            warehouseFood.add(food);
+            rsl = true;
+        }
+        return rsl;
     }
 
     @Override
     public List<Food> getFoodList() {
-        return warehouseFood;
+        return List.copyOf(warehouseFood);
+    }
+
+    @Override
+    public boolean accept(Food food) {
+        return percent(food) < PERCENT_25;
     }
 }

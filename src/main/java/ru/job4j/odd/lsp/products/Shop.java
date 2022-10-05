@@ -4,15 +4,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Shop implements Store {
-    List<Food> shopFood = new ArrayList<>();
+   private final List<Food> shopFood = new ArrayList<>();
 
     @Override
-    public void add(Food food) {
-        shopFood.add(food);
+    public boolean add(Food food) {
+        boolean rsl = false;
+        if (accept(food)) {
+            if (discountCheck(food)) {
+                setDiscount(food);
+            }
+            shopFood.add(food);
+            rsl = true;
+        }
+        return rsl;
     }
 
     @Override
     public List<Food> getFoodList() {
-        return shopFood;
+        return List.copyOf(shopFood);
+    }
+
+    @Override
+    public boolean accept(Food food) {
+        return percent(food) >= PERCENT_25 && percent(food) < PERCENT_75;
+    }
+
+    public boolean discountCheck(Food food) {
+        return percent(food) >= PERCENT_75 && percent(food) < PERCENT_100;
+    }
+
+    public void setDiscount(Food food) {
+        food.setPrice(food.getPrice() - food.getDiscount());
     }
 }

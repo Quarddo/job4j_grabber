@@ -4,15 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Trash implements Store {
-    List<Food> trashFood = new ArrayList<>();
+    private final List<Food> trashFood = new ArrayList<>();
 
     @Override
-    public void add(Food food) {
-        trashFood.add(food);
+    public boolean add(Food food) {
+        boolean rsl = false;
+        if (accept(food)) {
+            trashFood.add(food);
+            rsl = true;
+        }
+        return rsl;
     }
 
     @Override
     public List<Food> getFoodList() {
-        return trashFood;
+        return List.copyOf(trashFood);
+    }
+
+    @Override
+    public boolean accept(Food food) {
+        return percent(food) >= PERCENT_100;
     }
 }

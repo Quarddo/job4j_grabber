@@ -1,51 +1,98 @@
 package ru.job4j.odd.lsp.products;
 
 import static org.assertj.core.api.Assertions.*;
+
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.time.LocalDate;
-import java.util.Calendar;
+import java.util.List;
 
 public class ControlQualityTest {
 
+    @Ignore
     @Test
     public void whenAddToShop() {
-        LocalDate expireDate = LocalDate.of(2022, Calendar.SEPTEMBER, 25);
-        LocalDate createDate = LocalDate.of(2022, Calendar.OCTOBER, 6);
-        Food food = new Food("Мясо", expireDate, createDate, 500, 0);
-        ControlQuality controlQuality = new ControlQuality();
-        controlQuality.productSorting(food);
-        assertThat(controlQuality.shop.getFoodList().contains(food));
+        Store shop = new Shop();
+        List<Store> storeList = List.of(shop);
+        LocalDate expireDate = LocalDate.now().plusDays(10);
+        LocalDate createDate = LocalDate.now().plusDays(3);
+        Food food = new Meat("Мясо", expireDate, createDate, 500, 0);
+        ControlQuality controlQuality = new ControlQuality(storeList);
+        controlQuality.addFoodsInStore(food);
+        assertThat(shop.getFoodList().contains(food)).isTrue();
     }
 
     @Test
     public void whenAddToWarehouse() {
-        LocalDate expireDate = LocalDate.of(2022, Calendar.SEPTEMBER, 29);
-        LocalDate createDate = LocalDate.of(2022, Calendar.OCTOBER, 9);
-        Food food = new Food("Мясо", expireDate, createDate, 500, 0);
-        ControlQuality controlQuality = new ControlQuality();
-        controlQuality.productSorting(food);
-        assertThat(controlQuality.warehouse.getFoodList().contains(food));
+        Store warehouse = new Warehouse();
+        List<Store> storeList = List.of(warehouse);
+        LocalDate createDate = LocalDate.now();
+        LocalDate expireDate = createDate.plusMonths(1);
+        Food food = new Meat("Мясо", expireDate, createDate, 500, 0);
+        ControlQuality controlQuality = new ControlQuality(storeList);
+        controlQuality.addFoodsInStore(food);
+        assertThat(warehouse.getFoodList().contains(food)).isTrue();
     }
 
+    @Ignore
     @Test
     public void whenAddToShopWithDiscount() {
-        LocalDate expireDate = LocalDate.of(2022, Calendar.SEPTEMBER, 25);
-        LocalDate createDate = LocalDate.of(2022, Calendar.OCTOBER, 3);
-        Food food = new Food("Мясо", expireDate, createDate, 500, 200);
-        Food expected = new Food("Мясо", expireDate, createDate, 300, 200);
-        ControlQuality controlQuality = new ControlQuality();
-        controlQuality.productSorting(food);
-        assertThat(controlQuality.shop.getFoodList().contains(expected));
+        Store shop = new Shop();
+        List<Store> storeList = List.of(shop);
+        LocalDate expireDate = LocalDate.now().plusDays(8);
+        LocalDate createDate = LocalDate.now().plusDays(10);
+        Food food = new Meat("Мясо", expireDate, createDate, 500, 200);
+        Food expected = new Meat("Мясо", expireDate, createDate, 300, 0);
+        ControlQuality controlQuality = new ControlQuality(storeList);
+        controlQuality.addFoodsInStore(food);
+        assertThat(shop.getFoodList().contains(expected)).isTrue();
     }
 
     @Test
     public void whenAddToTrash() {
-        LocalDate expireDate = LocalDate.of(2022, Calendar.AUGUST, 31);
-        LocalDate createDate = LocalDate.of(2022, Calendar.SEPTEMBER, 1);
-        Food food = new Food("Мясо", expireDate, createDate, 500, 0);
-        ControlQuality controlQuality = new ControlQuality();
-        controlQuality.productSorting(food);
-        assertThat(controlQuality.warehouse.getFoodList().contains(food));
+        Store warehouse = new Warehouse();
+        List<Store> storeList = List.of(warehouse);
+        LocalDate createDate = LocalDate.now();
+        LocalDate expireDate = createDate.minusDays(1);
+        Food food = new Meat("Мясо", expireDate, createDate, 500, 0);
+        ControlQuality controlQuality = new ControlQuality(storeList);
+        controlQuality.addFoodsInStore(food);
+        assertThat(warehouse.getFoodList().contains(food)).isTrue();
+    }
+
+    @Ignore
+    @Test
+    public void addEverywhere() {
+        Store warehouse = new Warehouse();
+        Store shop = new Shop();
+        Store trash = new Trash();
+        List<Store> storeList = List.of(warehouse, shop, trash);
+        LocalDate createDateFood = LocalDate.now();
+        LocalDate expireDateFood = createDateFood.plusMonths(1);
+        Food food = new Meat("Мясо", expireDateFood, createDateFood, 500, 0);
+        LocalDate createDateFood1 = LocalDate.now().plusDays(8);
+        LocalDate expireDateFood1 = LocalDate.now().plusDays(10);
+        Food food1 = new Meat("Мясо1", expireDateFood1, createDateFood1, 500, 200);
+        LocalDate createDateFood2 = LocalDate.now().plusDays(4);
+        LocalDate expireDateFood2 = LocalDate.now().plusDays(10);
+        Food food2 = new Meat("Мясо2", expireDateFood2, createDateFood2, 500, 0);
+        LocalDate createDateFood3 = LocalDate.now();
+        LocalDate expireDateFood3 = LocalDate.now().minusDays(1);
+        Food food3 = new Meat("Мясо3", expireDateFood3, createDateFood3, 500, 0);
+        ControlQuality controlQuality = new ControlQuality(storeList);
+        controlQuality.addFoodsInStore(food);
+        /**controlQuality.addFoodsInStore(food1);*/
+        controlQuality.addFoodsInStore(food2);
+        controlQuality.addFoodsInStore(food3);
+        assertThat(warehouse.getFoodList().contains(List.of(food))).isTrue();
+        /**assertThat(shop.getFoodList().contains(List.of(food1))).isTrue();*/
+        assertThat(shop.getFoodList().contains(List.of(food2))).isTrue();
+        assertThat(trash.getFoodList().contains(List.of(food3))).isTrue();
+
+
+
+
+
     }
 }

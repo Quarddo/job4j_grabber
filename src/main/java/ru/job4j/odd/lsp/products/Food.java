@@ -2,7 +2,7 @@ package ru.job4j.odd.lsp.products;
 
 import java.time.LocalDate;
 
-public class Food {
+public abstract class Food {
 
     private String name;
     private LocalDate expireDate;
