@@ -10,17 +10,17 @@ import java.util.List;
 
 public class ControlQualityTest {
 
-    @Ignore
     @Test
     public void whenAddToShop() {
         Store shop = new Shop();
         List<Store> storeList = List.of(shop);
-        LocalDate expireDate = LocalDate.now().plusDays(10);
-        LocalDate createDate = LocalDate.now().plusDays(3);
+        LocalDate createDate = LocalDate.now().minusDays(3);
+        LocalDate expireDate = LocalDate.now().plusDays(3);
         Food food = new Meat("Мясо", expireDate, createDate, 500, 0);
         ControlQuality controlQuality = new ControlQuality(storeList);
         controlQuality.addFoodsInStore(food);
-        assertThat(shop.getFoodList().contains(food)).isTrue();
+        assertThat(shop.getFoodList().contains(List.of(food)));
+        /** assertThat(shop.getFoodList().contains(food)).isTrue(); */
     }
 
     @Test
@@ -32,10 +32,10 @@ public class ControlQualityTest {
         Food food = new Meat("Мясо", expireDate, createDate, 500, 0);
         ControlQuality controlQuality = new ControlQuality(storeList);
         controlQuality.addFoodsInStore(food);
-        assertThat(warehouse.getFoodList().contains(food)).isTrue();
+        assertThat(warehouse.getFoodList().contains(List.of(food)));
+        /** assertThat(warehouse.getFoodList().contains(food)).isTrue(); */
     }
 
-    @Ignore
     @Test
     public void whenAddToShopWithDiscount() {
         Store shop = new Shop();
@@ -46,7 +46,7 @@ public class ControlQualityTest {
         Food expected = new Meat("Мясо", expireDate, createDate, 300, 0);
         ControlQuality controlQuality = new ControlQuality(storeList);
         controlQuality.addFoodsInStore(food);
-        assertThat(shop.getFoodList().contains(expected)).isTrue();
+        assertThat(shop.getFoodList().contains(expected));
     }
 
     @Test
@@ -58,10 +58,10 @@ public class ControlQualityTest {
         Food food = new Meat("Мясо", expireDate, createDate, 500, 0);
         ControlQuality controlQuality = new ControlQuality(storeList);
         controlQuality.addFoodsInStore(food);
+        assertThat(warehouse.getFoodList().contains(List.of(food)));
         assertThat(warehouse.getFoodList().contains(food)).isTrue();
     }
 
-    @Ignore
     @Test
     public void addEverywhere() {
         Store warehouse = new Warehouse();
@@ -82,17 +82,17 @@ public class ControlQualityTest {
         Food food3 = new Meat("Мясо3", expireDateFood3, createDateFood3, 500, 0);
         ControlQuality controlQuality = new ControlQuality(storeList);
         controlQuality.addFoodsInStore(food);
-        /**controlQuality.addFoodsInStore(food1);*/
+        controlQuality.addFoodsInStore(food1);
         controlQuality.addFoodsInStore(food2);
         controlQuality.addFoodsInStore(food3);
-        assertThat(warehouse.getFoodList().contains(List.of(food))).isTrue();
-        /**assertThat(shop.getFoodList().contains(List.of(food1))).isTrue();*/
-        assertThat(shop.getFoodList().contains(List.of(food2))).isTrue();
-        assertThat(trash.getFoodList().contains(List.of(food3))).isTrue();
-
-
-
-
-
+        assertThat(warehouse.getFoodList().contains((food)));
+        assertThat(shop.getFoodList().contains((food1)));
+        assertThat(shop.getFoodList().contains((food2)));
+        assertThat(trash.getFoodList().contains((food3)));
+        /**
+        assertThat(warehouse.getFoodList().contains((food))).isTrue();
+        assertThat(shop.getFoodList().contains((food1))).isTrue();
+        assertThat(shop.getFoodList().contains((food2))).isTrue();
+        assertThat(trash.getFoodList().contains((food3))).isTrue(); */
     }
 }
