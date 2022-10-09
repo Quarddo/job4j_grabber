@@ -26,7 +26,7 @@ public class Shop implements Store {
 
     @Override
     public boolean accept(Food food) {
-        return percent(food) >= PERCENT_25 && percent(food) < PERCENT_75;
+        return percent(food) >= PERCENT_25 && percent(food) < PERCENT_100;
     }
 
     private boolean discountCheck(Food food) {
@@ -36,4 +36,19 @@ public class Shop implements Store {
     private void setDiscount(Food food) {
         food.setPrice(food.getPrice() - food.getDiscount());
     }
+
+/**
+     public static void main(String[] args) {
+         LocalDate expireDate = LocalDate.now().plusDays(1);
+         LocalDate createDate = LocalDate.now().minusDays(3);
+        double bestBeforeDate = ChronoUnit.DAYS.between(createDate,
+                expireDate);
+        System.out.println(bestBeforeDate);
+        double daysExisted = ChronoUnit.DAYS.between(createDate,
+                    LocalDate.now());
+        System.out.println(daysExisted);
+        float rsl = (float) (daysExisted / bestBeforeDate * 100);
+        System.out.println(rsl);
+    }
+ */
 }

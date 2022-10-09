@@ -2,6 +2,7 @@ package ru.job4j.odd.lsp.products;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.List;
 
 public interface Store {
@@ -14,9 +15,9 @@ public interface Store {
     boolean accept(Food food);
 
     default float percent(Food food) {
-        long bestBeforeDate = ChronoUnit.DAYS.between(food.getCreateDate(),
+        double bestBeforeDate = ChronoUnit.DAYS.between(food.getCreateDate(),
                 food.getExpireDate());
-        long daysExisted = ChronoUnit.DAYS.between(food.getCreateDate(),
+        double daysExisted = ChronoUnit.DAYS.between(food.getCreateDate(),
                 LocalDate.now());
         return (float) (daysExisted / bestBeforeDate * 100);
     }

@@ -1,7 +1,5 @@
 package ru.job4j.odd.lsp.products;
 
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 public class ControlQuality {
