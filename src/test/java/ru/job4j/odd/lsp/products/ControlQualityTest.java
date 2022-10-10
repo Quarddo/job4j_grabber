@@ -19,7 +19,6 @@ public class ControlQualityTest {
         ControlQuality controlQuality = new ControlQuality(storeList);
         controlQuality.addFoodsInStore(food);
         assertThat(shop.getFoodList()).containsAll(List.of(food));
-        assertThat(shop.getFoodList().contains(food)).isTrue();
     }
 
     @Test
@@ -32,7 +31,6 @@ public class ControlQualityTest {
         ControlQuality controlQuality = new ControlQuality(storeList);
         controlQuality.addFoodsInStore(food);
         assertThat(warehouse.getFoodList()).containsAll(List.of(food));
-        assertThat(warehouse.getFoodList().contains(food)).isTrue();
     }
 
     @Test
@@ -46,7 +44,7 @@ public class ControlQualityTest {
         ControlQuality controlQuality = new ControlQuality(storeList);
         controlQuality.addFoodsInStore(food);
         controlQuality.addFoodsInStore(expected);
-        assertThat(shop.getFoodList().contains(expected)).isTrue();
+        assertThat(shop.getFoodList()).contains(expected);
     }
 
     @Test
@@ -59,7 +57,6 @@ public class ControlQualityTest {
         ControlQuality controlQuality = new ControlQuality(storeList);
         controlQuality.addFoodsInStore(food);
         assertThat(trash.getFoodList()).containsAll(List.of(food));
-        assertThat(trash.getFoodList().contains(food)).isTrue();
     }
 
     @Test
@@ -89,9 +86,5 @@ public class ControlQualityTest {
         assertThat(shop.getFoodList()).containsAll(List.of(food1));
         assertThat(shop.getFoodList()).containsAll(List.of(food2));
         assertThat(trash.getFoodList()).containsAll(List.of(food3));
-        assertThat(warehouse.getFoodList().contains((food))).isTrue();
-        assertThat(shop.getFoodList().contains((food1))).isTrue();
-        assertThat(shop.getFoodList().contains((food2))).isTrue();
-        assertThat(trash.getFoodList().contains((food3))).isTrue();
     }
 }
