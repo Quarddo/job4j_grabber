@@ -7,16 +7,16 @@ public class ParkingPlaces implements Parking {
 
     private final List<Car> parkingCars = new ArrayList<>();
 
-    final int passengerSize;
-    final int truckSize;
-    List<Car> passengerList;
-    List<Car> truckList;
+    private final int passengerSize;
+    private final int truckSize;
+    private final List<Car> passengerList;
+    private final List<Car> truckList;
 
     public ParkingPlaces(int passengerSize, int truckSize) {
         this.passengerSize = passengerSize;
         this.truckSize = truckSize;
-        passengerList = new ArrayList<>();
-        truckList = new ArrayList<>();
+        passengerList = new ArrayList<>(passengerSize);
+        truckList = new ArrayList<>(truckSize);
     }
 
     @Override
