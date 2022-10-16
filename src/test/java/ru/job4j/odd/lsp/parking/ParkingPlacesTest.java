@@ -27,7 +27,7 @@ public class ParkingPlacesTest {
         assertThat(parking.add(truck)).isTrue();
     }
 
-    @Ignore
+
     @Test
     public void whenNotEnoughSpaceForPassenger() {
         Car passenger = new Passenger("BMW");
@@ -35,11 +35,12 @@ public class ParkingPlacesTest {
         Car truck = new Truck("Man", 2);
         Parking parking = new ParkingPlaces(1, 1);
         assertThat(parking.add(passenger)).isTrue();
-        assertThat(parking.add(passenger1)).isFalse();
         assertThat(parking.add(truck)).isTrue();
+        assertThat(parking.add(passenger1)).isFalse();
+
     }
 
-    @Ignore
+
     @Test
     public void whenNotEnoughSpaceForTruck() {
         Car passenger = new Passenger("BMW");
@@ -50,6 +51,7 @@ public class ParkingPlacesTest {
         assertThat(parking.add(truck)).isTrue();
         assertThat(parking.add(truck1)).isFalse();
     }
+
 
     @Test
     public void whenPassengerAndTruckTogether() {

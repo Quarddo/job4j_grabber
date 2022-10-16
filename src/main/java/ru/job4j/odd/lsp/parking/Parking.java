@@ -6,7 +6,6 @@ public interface Parking {
 
     boolean add(Car car);
     List<Car> getCarList();
-    boolean checkPlace(Car car);
 
 
 }
