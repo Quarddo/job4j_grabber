@@ -28,11 +28,11 @@ public class ParkingPlaces implements Parking {
             rsl = true;
         } else if (checkTruckPlace(car)) {
             truckList.add(car);
-            countTruckPlace--;
+            countTruckPlace -= car.getSize();
             rsl = true;
         } else if (addTruckInPassengerPlace(car)) {
             passengerList.add(car);
-            countPassengerPlace = countPassengerPlace - car.getSize();
+            countPassengerPlace -= car.getSize();
             rsl = true;
         }
         return rsl;
@@ -43,29 +43,17 @@ public class ParkingPlaces implements Parking {
         return List.copyOf(parkingCars);
     }
 
-
     public boolean checkPassengerPlace(Car car) {
-        boolean rsl = false;
-        if (car.getSize() == Car.CAR_SIZE && countPassengerPlace >= passengerList.size()) {
-            rsl = true;
-        }
-        return rsl;
+        return car.getSize() == Car.CAR_SIZE && countPassengerPlace >= car.getSize();
     }
 
     public boolean checkTruckPlace(Car car) {
-        boolean rsl = false;
-        if (car.getSize() > Car.CAR_SIZE && countTruckPlace >= truckList.size()) {
-            rsl = true;
-        }
-        return rsl;
+        return car.getSize() > Car.CAR_SIZE && countTruckPlace >= truckList.size();
     }
 
     public boolean addTruckInPassengerPlace(Car car) {
-        boolean rsl = false;
-        if (car.getSize() > Car.CAR_SIZE && countTruckPlace < truckList.size()
-                && countPassengerPlace > truckList.size()) {
-            rsl = true;
-        }
-        return rsl;
+        return car.getSize() > Car.CAR_SIZE
+                && countTruckPlace < car.getSize()
+                && countPassengerPlace >= car.getSize();
     }
 }

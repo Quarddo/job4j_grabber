@@ -64,5 +64,8 @@ public class ParkingPlacesTest {
         assertThat(parking.add(passenger1)).isTrue();
         assertThat(parking.add(truck)).isTrue();
         assertThat(parking.add(truck1)).isTrue();
+        assertThat(parking.add(new Passenger("test"))).isTrue();
+        assertThat(parking.add(new Truck("testT", 3))).isFalse();
+        assertThat(parking.add(truck1)).isFalse();
     }
 }
