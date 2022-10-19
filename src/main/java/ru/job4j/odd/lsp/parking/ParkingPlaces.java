@@ -6,6 +6,7 @@ import java.util.List;
 public class ParkingPlaces implements Parking {
 
     private final List<Car> parkingCars = new ArrayList<>();
+    public static final int ONE_PLACE = 1;
 
     private int countPassengerPlace;
     private int countTruckPlace;
@@ -24,11 +25,11 @@ public class ParkingPlaces implements Parking {
         boolean rsl = false;
         if (checkPassengerPlace(car)) {
             passengerList.add(car);
-            countPassengerPlace--;
+            countPassengerPlace -= ONE_PLACE;
             rsl = true;
         } else if (checkTruckPlace(car)) {
             truckList.add(car);
-            countTruckPlace -= car.getSize();
+            countTruckPlace -= ONE_PLACE;
             rsl = true;
         } else if (addTruckInPassengerPlace(car)) {
             passengerList.add(car);

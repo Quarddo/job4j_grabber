@@ -68,4 +68,13 @@ public class ParkingPlacesTest {
         assertThat(parking.add(new Truck("testT", 3))).isFalse();
         assertThat(parking.add(truck1)).isFalse();
     }
+
+    @Test
+    public void whenAddTwoTrucksToTheTruckPlace() {
+        Car truck = new Truck("Man", 10);
+        Car truck1 = new Truck("Volvo", 30);
+        Parking parking = new ParkingPlaces(0, 2);
+        assertThat(parking.add(truck)).isTrue();
+        assertThat(parking.add(truck1)).isTrue();
+    }
 }
