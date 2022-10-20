@@ -1,8 +1,7 @@
-package ru.job4j.odd.lsp.products;
+package ru.job4j.solid.odd.lsp.products;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.Calendar;
 import java.util.List;
 
 public interface Store {

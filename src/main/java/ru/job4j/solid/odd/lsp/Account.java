@@ -1,6 +1,4 @@
-package ru.job4j.odd.lsp;
-
-import java.util.Locale;
+package ru.job4j.solid.odd.lsp;
 
 import static java.lang.Character.isUpperCase;
 

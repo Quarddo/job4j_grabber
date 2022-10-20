@@ -1,4 +1,4 @@
-package ru.job4j.odd.lsp.parking;
+package ru.job4j.solid.odd.lsp.parking;
 
 import java.util.ArrayList;
 import java.util.List;

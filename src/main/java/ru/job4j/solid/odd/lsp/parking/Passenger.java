@@ -1,4 +1,4 @@
-package ru.job4j.odd.lsp.parking;
+package ru.job4j.solid.odd.lsp.parking;
 
 public class Passenger extends Car {
 

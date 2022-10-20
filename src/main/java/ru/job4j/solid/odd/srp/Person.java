@@ -1,4 +1,4 @@
-package ru.job4j.srp;
+package ru.job4j.solid.odd.srp;
 
 /**
  * В данном случае нарушение SRP происходит из-за того что, помимо представления сущности Person

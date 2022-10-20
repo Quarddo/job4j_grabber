@@ -1,6 +1,7 @@
 package ru.job4j.odd.lsp.parking;
 
 import org.junit.Test;
+import ru.job4j.solid.odd.lsp.parking.*;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
