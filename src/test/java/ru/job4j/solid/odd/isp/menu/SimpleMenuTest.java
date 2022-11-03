@@ -1,4 +1,4 @@
-package ru.job4j.solid.odd.isp.menu;
+/**package ru.job4j.solid.odd.isp.menu;
 
 import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.*;
 public class SimpleMenuTest {
 
     public static final ActionDelegate STUB_ACTION = System.out::println;
-/**
+
     @Ignore
     @Test
     public void whenAddThenReturnSame() {
@@ -72,5 +72,5 @@ public class SimpleMenuTest {
         assertThat(output.toString()).isEqualTo(expected);
 
         System.setOut(printStream);
-    }*/
-}
+    }
+}*/
