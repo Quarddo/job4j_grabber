@@ -7,9 +7,11 @@ import java.util.stream.Collectors;
 
 public interface Menu extends Iterable<Menu.MenuItemInfo> {
 
-    String ROOT = null; /** Константа, указывающая, что нужно добавить элемент в корень */
+    String ROOT = null; /** Константа, указывающая,
+     что нужно добавить элемент в корень */
 
-    boolean add(String parentName, String childName, ActionDelegate actionDelegate);
+    boolean add(String parentName, String childName,
+                ActionDelegate actionDelegate);
 
     Optional<MenuItemInfo> select(String itemName);
 
@@ -22,12 +24,15 @@ public interface Menu extends Iterable<Menu.MenuItemInfo> {
 
         public MenuItemInfo(MenuItem menuItem, String number) {
             this.name = menuItem.getName();
-            this.children = menuItem.getChildren().stream().map(MenuItem::getName).collect(Collectors.toList());
+            this.children = menuItem.getChildren().stream()
+                    .map(MenuItem::getName)
+                    .collect(Collectors.toList());
             this.actionDelegate = menuItem.getActionDelegate();
             this.number = number;
         }
 
-        public MenuItemInfo(String name, List<String> children, ActionDelegate actionDelegate, String number) {
+        public MenuItemInfo(String name, List<String> children,
+                            ActionDelegate actionDelegate, String number) {
             this.name = name;
             this.children = children;
             this.actionDelegate = actionDelegate;

@@ -7,19 +7,23 @@ public class SimpleMenu implements Menu {
     private final List<MenuItem> rootElements = new ArrayList<>();
 
     @Override
-    public boolean add(String parentName, String childName, ActionDelegate actionDelegate) {
-        boolean rsl = false;
+    public boolean add(String parentName, String childName,
+                       ActionDelegate actionDelegate) {
+        boolean rsl = findItem(parentName).isPresent();
 
         if (findItem(childName).isPresent()) {
             return false;
         }
-        if (Objects.equals(parentName, Menu.ROOT)) {
-            rsl = rootElements.add(new SimpleMenuItem(childName, actionDelegate));
+        if (Objects.equals(parentName, ROOT)) {
+            rootElements.add(new SimpleMenuItem(childName, actionDelegate));
+            return true;
         }
-        if (findItem(parentName).isPresent()) {
-            rsl = findItem(parentName).get().menuItem.getChildren().add(new SimpleMenuItem(childName, actionDelegate));
+        if (rsl) {
+            findItem(parentName).get().menuItem.getChildren()
+                    .add(new SimpleMenuItem(childName, actionDelegate));
+            return true;
         }
-        return rsl;
+        return true;
     }
 
     @Override
@@ -49,8 +53,9 @@ public class SimpleMenu implements Menu {
         Iterator<ItemInfo> iterator = new DFSIterator();
         while (iterator.hasNext()) {
             ItemInfo itemInfo = iterator.next();
-            if (name.equals(itemInfo.menuItem.getName())) {
+            if (itemInfo.menuItem.getName().equals(name)) {
                 rsl = Optional.of(itemInfo);
+                break;
             }
         }
         return rsl;
@@ -111,7 +116,8 @@ public class SimpleMenu implements Menu {
             String lastNumber = numbers.removeFirst();
             List<MenuItem> children = current.getChildren();
             int currentNumber = children.size();
-            for (var i = children.listIterator(children.size()); i.hasPrevious();) {
+            for (var i = children.listIterator(children.size());
+                 i.hasPrevious();) {
                 stack.addFirst(i.previous());
                 numbers.addFirst(lastNumber.concat(String.valueOf(currentNumber--)).concat("."));
             }

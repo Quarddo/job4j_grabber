@@ -10,7 +10,8 @@ public class SimpleMenuPrinter implements MenuPrinter {
     @Override
     public void print(Menu menu) {
         for (Menu.MenuItemInfo menuItem : menu) {
-            String scheme = RETRACT.repeat(menuItem.getNumber().split("\\.").length - 1)
+            String scheme = RETRACT.repeat(menuItem.getNumber()
+                    .split("\\.").length - 1)
                     + menuItem.getNumber() + menuItem.getName();
             System.out.println(scheme);
         }

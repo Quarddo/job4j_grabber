@@ -1,6 +1,5 @@
-/**package ru.job4j.solid.odd.isp.menu;
+package ru.job4j.solid.odd.isp.menu;
 
-import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -13,7 +12,6 @@ public class SimpleMenuTest {
 
     public static final ActionDelegate STUB_ACTION = System.out::println;
 
-    @Ignore
     @Test
     public void whenAddThenReturnSame() {
         Menu menu = new SimpleMenu();
@@ -35,7 +33,6 @@ public class SimpleMenuTest {
         menu.forEach(i -> System.out.println(i.getNumber() + i.getName()));
     }
 
-    @Ignore
     @Test
     public void whenSelect() {
         Menu menu = new SimpleMenu();
@@ -48,7 +45,6 @@ public class SimpleMenuTest {
         assertThat(item.getNumber()).isEqualTo("1.1.2.");
     }
 
-    @Ignore
     @Test
     public void whenPrintMenu() {
         Menu menu = new SimpleMenu();
@@ -63,14 +59,13 @@ public class SimpleMenuTest {
         MenuPrinter printer = new SimpleMenuPrinter();
         printer.print(menu);
         String expected = """
-                1.Сходить в магазин\r
-                -1.1.Купить продукты\r
-                --1.1.1.Купить хлеб\r
-                --1.1.2.Купить молоко\r
-                 2.Покормить собаку\r
-                 """;
+                1.Сходить в магазин
+                ----1.1.Купить продукты
+                --------1.1.1.Купить хлеб
+                --------1.1.2.Купить молоко
+                2.Покормить собаку
+                """;
         assertThat(output.toString()).isEqualTo(expected);
-
         System.setOut(printStream);
     }
-}*/
+}

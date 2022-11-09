@@ -1,4 +1,4 @@
-/**package ru.job4j.solid.odd.isp.menu;
+package ru.job4j.solid.odd.isp.menu;
 
 import java.util.Scanner;
 
@@ -41,4 +41,4 @@ public class TODOApp {
             }
         }
     }
-}*/
+}
