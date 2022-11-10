@@ -31,8 +31,9 @@ public class TODOApp {
                 System.out.println("Введите новый пункт меню!");
                 menu.add(Menu.ROOT, scanner.nextLine(), STUB_ACTION);
             } else if (ADD_SUB.equals(choose)) {
-                System.out.println("Введите название пункта!");
+                System.out.println("Введите имя пункта!");
                 String item = scanner.nextLine();
+                System.out.println("Введите название нового подпункта меню!");
                 menu.add(item, scanner.nextLine(), STUB_ACTION);
             } else if (PRINT_ITEM.equals(choose)) {
                 printer.print(menu);

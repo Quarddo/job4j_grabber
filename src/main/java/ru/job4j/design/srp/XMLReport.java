@@ -29,7 +29,7 @@ public class XMLReport implements Report {
         } catch (IOException | JAXBException e) {
             e.printStackTrace();
         }
-       return xml;
+        return xml;
     }
 /**
     public static void main(String[] arg) throws JAXBException {
