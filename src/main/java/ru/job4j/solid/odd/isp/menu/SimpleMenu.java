@@ -25,7 +25,7 @@ public class SimpleMenu implements Menu {
                     .add(new SimpleMenuItem(childName, actionDelegate));
             return true;
         }
-        return true;
+        return false;
     }
 
     @Override
