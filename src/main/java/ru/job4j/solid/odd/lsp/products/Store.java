@@ -12,6 +12,7 @@ public interface Store {
     boolean add(Food food);
     List<Food> getFoodList();
     boolean accept(Food food);
+    void removeAll();
 
     default float percent(Food food) {
         double bestBeforeDate = ChronoUnit.DAYS.between(food.getCreateDate(),

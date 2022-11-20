@@ -25,4 +25,9 @@ public class Trash implements Store {
     public boolean accept(Food food) {
         return percent(food) >= PERCENT_100;
     }
+
+    @Override
+    public void removeAll() {
+        trashFood.clear();
+    }
 }
